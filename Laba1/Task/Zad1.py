@@ -43,8 +43,8 @@ while True:
         continue
 
     if user_input == 1:
-        for item in count_of_words(text_to_list_of_words(text)).items():
-            print('{0} : {1}'.format(item[0], item[1]))
+        for p, v in count_of_words(text).items():
+            print('{0} : {1}'.format(p, v))
         print()
     elif user_input == 2:
         print(average_len(text_to_list_of_words(text)))

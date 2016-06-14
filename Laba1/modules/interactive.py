@@ -3,37 +3,38 @@ import re
 
 # All methods made have two or more parameters for correct work
 
-class Interactive(object):
+class Interactive:
     def __init__(self):
         self.repository = set()
 
-    def add(self, items):
-        self.repository.update(items)
+    def add(self, *items):
+        print(items)
+        self.repository.update(*items)
 
-    def remove(self, item):
-        if item:
-            self.repository.discard(item)
+    def remove(self, *item):
+        if item[0]:
+            self.repository.discard(*item)
 
-    def find(self, items):
-        for item in self.repository.intersection(items):
+    def find(self, *items):
+        for item in self.repository.intersection(*items):
             print(item, end=' ')
         print()
 
-    def list(self, other):
+    def list(self, *other):
         for item in self.repository:
             print(item, end=' ')
         print()
 
-    def load(self, other):
-        filename = input('Filename: ')
+    def load(self, *other):
+        filename = other[0].pop()
         try:
             with open(filename) as file:
                 self.repository.update(line.strip() for line in file)
         except FileNotFoundError:
             print('File not found')
 
-    def save(self, other):
-        filename = input('Filename: ')
+    def save(self, *other):
+        filename = other[0].pop()
         try:
             with open(filename, 'w+') as file:
                 for index in self.repository:
@@ -41,16 +42,16 @@ class Interactive(object):
         except FileNotFoundError:
             print('File not found')
 
-    def clear(self, other):
+    def clear(self, *other):
         self.repository.clear()
 
-    def grep(self, other):
-        print(other[0])
-        pattern = other[0]
-        print(self.repository)
+    def grep(self, *other):
+        pattern = other[0].pop()
         for item in self.repository:
-            found = re.match(pattern, str(item))
-            print(found.group(0))
+            found = re.findall(pattern, item)
+            if len(found) > 0 and found[0] == item:
+                print(item, end=' ')
+        print()
 
 
 def writen():
@@ -65,6 +66,3 @@ def writen():
         else:
             print('function ' + text[0] + ' isn\'t find')
         text = input('Wild: ').split(' ')
-
-
-writen()

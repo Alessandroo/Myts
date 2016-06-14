@@ -18,12 +18,12 @@ if re.findall(number, input('number :')):
 else:
     print(False)
 
-url_pattern = '^(?P<protocol>.*)://(?P<domen>[A-Za-z0-9\-\.]+):(?P<port>[0-9]+)?(?P<path>(/[A-z]+[^/])*)'
-url = 'http://vk.com:8080/hello/world'
+url_pattern = '^(?P<protocol>.*)://(?P<domain>[A-Za-z0-9\-\.]+):(?P<port>[0-9]+)?(?P<path>(/[A-z]+[^/]/.)*)'
+url = 'http://localhost:8080/google.com'
 
 m = re.match(url_pattern, url)
 print(m.group('protocol'))
-print(m.group('domen'))
+print(m.group('domain'))
 print(m.group('port'))
 print(m.group('path'))
 
